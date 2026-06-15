@@ -1,0 +1,67 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.sln
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.venv/
+venv/
+ENV/
+env/
+/bin/
+/include/
+/lib/
+/share/
+
+# Node/Frontend
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.eslintcache
+.npm
+package-lock.json.log
+
+# Large generated data files (to prevent committing GBs of local embeddings and session DBs)
+data/processed_data/
+data/uploaded_resumes/

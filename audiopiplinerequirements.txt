@@ -1,0 +1,13 @@
+faster-whisper
+librosa
+sounddevice
+soundfile
+numpy
+scipy
+silero-vad
+torch
+torchaudio
+noisereduce
+tk
+simpleaudio
+pygame
