@@ -74,9 +74,19 @@ def extract_text_from_pdf(pdf_path: str) -> str:
 def maybe_speak_question(question_text: str, enable_tts: bool = False, tts_voice: str = "Samantha"):
     if not enable_tts:
         return
+    import sys
     try:
-        # blocking call: dictation completes before we allow mic capture
-        subprocess.run(["say", "-v", tts_voice, question_text], check=False)
+        if sys.platform == "darwin":
+            # macOS native say command
+            subprocess.run(["say", "-v", tts_voice, question_text], check=False)
+        elif sys.platform == "win32":
+            # Windows native SpeechSynthesizer via PowerShell
+            escaped_text = question_text.replace('"', '\\"')
+            cmd = f'Add-Type -AssemblyName System.Speech; (New-Object System.Speech.Synthesis.SpeechSynthesizer).Speak("{escaped_text}")'
+            subprocess.run(["powershell", "-Command", cmd], check=False)
+        else:
+            # Linux fallback via espeak
+            subprocess.run(["espeak", question_text], check=False)
     except Exception:
         pass
 
