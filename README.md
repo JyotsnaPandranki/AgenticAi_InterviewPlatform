@@ -19,10 +19,18 @@ HIA is an AI-powered adaptive mock interview platform with resume intelligence, 
 
 # Quick Start
 
+### macOS / Linux
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ./run_local.sh
+```
+
+### Windows (CMD)
+```cmd
+python -m venv venv
+venv\Scripts\activate
+run_local.bat
 ```
 
 ---
@@ -33,11 +41,26 @@ Run the following commands in order.
 
 ## 1) Backend environment
 
+### macOS / Linux
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 
 pip install --upgrade pip
+
+pip install fastapi uvicorn python-multipart pydantic python-dotenv
+pip install openai sentence-transformers scikit-learn numpy
+pip install faster-whisper soundfile noisereduce sounddevice
+pip install opencv-python mediapipe onnxruntime
+pip install pdfplumber
+```
+
+### Windows (CMD)
+```cmd
+python -m venv venv
+venv\Scripts\activate
+
+python -m pip install --upgrade pip
 
 pip install fastapi uvicorn python-multipart pydantic python-dotenv
 pip install openai sentence-transformers scikit-learn numpy
@@ -62,6 +85,7 @@ OPENROUTER_API_KEY=
 
 ## 2) CV model download (required for computer vision features)
 
+### macOS / Linux
 ```bash
 mkdir -p CV/models
 
@@ -72,11 +96,42 @@ curl -L "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_la
 -o CV/models/pose_landmarker.task
 ```
 
-Optional explicit exports in case of an error:
+### Windows (CMD)
+```cmd
+mkdir CV\models
 
+curl.exe -L "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task" -o CV\models\face_landmarker.task
+
+curl.exe -L "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task" -o CV\models\pose_landmarker.task
+```
+
+### Windows (PowerShell)
+```powershell
+New-Item -ItemType Directory -Force -Path CV\models
+
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task" -OutFile CV\models\face_landmarker.task
+
+Invoke-WebRequest -Uri "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task" -OutFile CV\models\pose_landmarker.task
+```
+
+Optional explicit exports/variables in case of an error:
+
+**macOS/Linux:**
 ```bash
 export MEDIAPIPE_FACE_MODEL="CV/models/face_landmarker.task"
 export MEDIAPIPE_POSE_MODEL="CV/models/pose_landmarker.task"
+```
+
+**Windows (CMD):**
+```cmd
+set MEDIAPIPE_FACE_MODEL=CV\models\face_landmarker.task
+set MEDIAPIPE_POSE_MODEL=CV\models\pose_landmarker.task
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:MEDIAPIPE_FACE_MODEL="CV\models\face_landmarker.task"
+$env:MEDIAPIPE_POSE_MODEL="CV\models\pose_landmarker.task"
 ```
 
 ---
@@ -94,8 +149,15 @@ npm install
 
 ## One-command run (recommended)
 
+### macOS / Linux
 ```bash
 ./run_local.sh
+```
+
+### Windows
+Double-click `run_local.bat` or run:
+```cmd
+run_local.bat
 ```
 
 Starts:
@@ -107,18 +169,33 @@ Starts:
 
 ## Manual run
 
-### Terminal A
+### macOS / Linux
 
+#### Terminal A
 ```bash
 source venv/bin/activate
 uvicorn api.server:app --host 0.0.0.0 --port 8000
 ```
 
-### Terminal B
-
+#### Terminal B
 ```bash
 cd frontend
 VITE_API_BASE_URL=http://localhost:8000 npm run dev
+```
+
+### Windows (CMD)
+
+#### Terminal A
+```cmd
+venv\Scripts\activate
+uvicorn api.server:app --host 0.0.0.0 --port 8000
+```
+
+#### Terminal B
+```cmd
+cd frontend
+set VITE_API_BASE_URL=http://localhost:8000
+npm run dev
 ```
 
 ---
